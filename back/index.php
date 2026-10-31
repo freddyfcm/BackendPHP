@@ -1,0 +1,39 @@
+
+<?php
+date_default_timezone_set('America/La paz');
+$message=$_POST["message"];
+$message1=$_POST["message1"];
+$fhora = $_POST["fhora"];
+$cvendedor = $_POST["vendedor"];
+$fhoraS = date("Y-m-d H:i:s");
+$manual = $_POST["manual"];
+$respuesta = "datos recibidos";
+$codcliente =$_POST["codcliente"];
+$tipo =$_POST["tipo"];
+
+$connection = mysql_connect ("localhost", "root", "pertec2014");
+if (!$connection)
+{
+  die('Not connected : ' . mysql_error());
+}
+
+$db_selected = mysql_select_db("pertec", $connection);
+if (!$db_selected)
+{
+  die('Can\'t use db : ' . mysql_error());
+}
+
+$query = "INSERT INTO rutap (lat,lon,codvendedor,fhoraA,fhoraS, manual, cvisitado, tipo) VALUES ('$message','$message1','$cvendedor','$fhora','$fhoraS','$manual', '$codcliente','$tipo')";
+$result = mysql_query($query);
+
+$filename="androidmessages.html";
+
+//file_put_contents($filename,$fhora."<br />",FILE_APPEND);
+
+$androidmessages=file_get_contents($filename);
+
+//echo $androidmessages;
+//echo $message1;
+echo "Datos recepcionados";
+//echo $cvendedor;
+?>
